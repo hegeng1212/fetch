@@ -30,16 +30,16 @@ class mycrawler extends Phpfetcher_Crawler_Default {
             $objLi = $objContent[$i]->find("li");
             for ($j = 0; $j < count($objLi); ++$j) {
                 if ($objLi[$j]->getAttribute('class') == 'f_1' && $params['good'] == '') {
-                    $params['good'] = trim(strip_tags($objLi[$j]->outertext()));
-                    $params['good'] = preg_replace('/一-龥/', '', $params['good']);
+                    $params['good'] = preg_replace('/[\x80-\xff]/', '', $objLi[$j]->outertext());
+                    $params['good'] = trim(strip_tags($params['good']));
                 }
                 if ($objLi[$j]->getAttribute('class') == 'f_2' && $params['num'] == '') {
-                    $params['num'] = trim(strip_tags($objLi[$j]->outertext()));
-                    $params['num'] = preg_replace('/一-龥/', '', $params['num']);
+                    $params['num'] = preg_replace('/[\x80-\xff]/', '', $objLi[$j]->outertext());
+                    $params['num'] = trim(strip_tags($params['num']));
                 }
                 if ($objLi[$j]->getAttribute('class') == 'f_3' && $params['follow'] == '') {
-                    $params['follow'] = trim(strip_tags($objLi[$j]->outertext()));
-                    $params['follow'] = preg_replace('/一-龥/', '', $params['follow']);
+                    $params['follow'] = preg_replace('/[\x80-\xff]/', '', $objLi[$j]->outertext());
+                    $params['follow'] = trim(strip_tags($params['follow']));
                 }
             }
             if ($objContent[$i]->getAttribute('class') == 'gy-image') {

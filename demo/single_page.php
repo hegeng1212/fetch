@@ -49,7 +49,7 @@ class mycrawler extends Phpfetcher_Crawler_Default {
         }
         //打印处当前页面的title
         $res = $page->sel('//h1');
-        $params['title'] = $res[0]->plaintext;
+        $params['title'] = trim($res[0]->plaintext);
 //        if ($res[0]->find("img")->getAttribute('class') == 'niu_pic' && $params['icon'] == '') {
 //            $params['icon'] = '牛人专线';
 //        }

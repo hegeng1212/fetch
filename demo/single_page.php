@@ -41,10 +41,12 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                     $params['follow'] = preg_replace('/[\x80-\xff]/', '', $objLi[$j]->outertext());
                     $params['follow'] = trim(strip_tags($params['follow']));
                 }
-            }var_dump($objContent[$i]->getAttribute('class'));exit;
-            if ($objContent[$i]->getAttribute('class') == 'gy-image') {
-                $objImg = $objContent[$i]->childNodes(0);
-                $params['img'][] = $objImg->getAttribute('src');
+            }
+            if ($objContent[$i]->getAttribute('class') == 'gy-thumbs') {
+                $objImg = $objContent[$i]->find("img");
+                for ($j = 0; $j < count($objImg); ++$j) {
+                    $params['img'][] = $objImg->getAttribute('src');
+                }
             }
 
             $objImg = $objContent[$i]->find("img");

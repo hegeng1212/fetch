@@ -24,7 +24,7 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                     $params['price'] = strip_tags($objSpan[$j]->outertext());
                 }
             }
-            if ($res[0]->getAttribute('class') == 'gy-image') {
+            if ($objContent[$i]->getAttribute('class') == 'gy-image') {
                 $objImg = $objContent[$i]->find("img");
                 $params['img'][] = $objImg->getAttribute('src');
             }

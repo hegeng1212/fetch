@@ -42,7 +42,7 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                     $params['follow'] = trim(strip_tags($params['follow']));
                 }
             }
-            if ($objContent[$i]->getAttribute('class') == 'gy-image') {
+            if ($objContent[$i]->getAttribute('class') == 'gy-image') {var_dump($objContent[$i]->getAttribute('class'));exit;
                 $objImg = $objContent[$i]->childNodes(0);
                 $params['img'][] = $objImg->getAttribute('src');
             }

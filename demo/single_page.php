@@ -6,22 +6,38 @@ set_include_path(get_include_path() . PATH_SEPARATOR . $demo_include_path);
 require_once('phpfetcher.php');
 class mycrawler extends Phpfetcher_Crawler_Default {
     public function handlePage($page) {
-        echo "+++ enter page: [" . $page->getUrl() . "] +++\n";
+
+        $params = array(
+            'url'     => $page->getUrl(),
+            'title'   => '',
+            'icon'    => '',
+            'img'     => array(),
+            'price'   => '',
+            'content' => '',
+        );
+
         $objContent = $page->sel("//div");
         for ($i = 0; $i < count($objContent); ++$i) {
             $objSpan = $objContent[$i]->find("span");
             for ($j = 0; $j < count($objSpan); ++$j) {
-                if ($objSpan[$j]->getAttribute('class') == 'cx_price') {
-                    echo $objSpan[$j]->outertext() . "\n";
+                if ($objSpan[$j]->getAttribute('class') == 'cx_price' && $params['price'] == '') {
+                    $params['price'] = strip_tags($objSpan[$j]->outertext());
                 }
+            }
+            if ($res[0]->getAttribute('class') == 'gy-image') {
+                $objImg = $objContent[$i]->find("img");
+                $params['img'][] = $objImg->getAttribute('src');
             }
         }
         //打印处当前页面的title
         $res = $page->sel('//h1');
-        for ($i = 0; $i < count($res); ++$i) {
-            echo $res[$i]->plaintext;
-            echo "\n";
+        $params['price'] = $res[0]->plaintext;
+        if ($res[0]->find("img")->getAttribute('class') == 'niu_pic' && $params['icon'] == '') {
+            $params['icon'] = '牛人专线';
         }
+
+        var_dump($params);exit;
+
     }
 }
 

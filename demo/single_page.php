@@ -43,7 +43,7 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                 }
             }
             if ($objContent[$i]->getAttribute('class') == 'gy-image') {
-                $objImg = $objContent[$i]->find("img");
+                $objImg = $objContent[$i]->childNodes(0);
                 $params['img'][] = $objImg->getAttribute('src');
             }
 
@@ -57,13 +57,8 @@ class mycrawler extends Phpfetcher_Crawler_Default {
         //打印处当前页面的title
         $res = $page->sel('//h1');
         $params['title'] = trim($res[0]->plaintext);
-//        var_dump($res[0]->find("//img"));exit;
-//        if ($res[0]->find("img")->getAttribute('class') == 'niu_pic' && $params['icon'] == '') {
-//            $params['icon'] = '牛人专线';
-//        }
 
         var_dump($params);exit;
-
     }
 }
 

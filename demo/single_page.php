@@ -49,7 +49,7 @@ class mycrawler extends Phpfetcher_Crawler_Default {
 
             $objImg = $objContent[$i]->find("img");
             for ($j = 0; $j < count($objImg); ++$j) {
-                if ($objImg[$i]->getAttribute('class') == 'niu_pic') {
+                if ($objImg[$j]->getAttribute('class') == 'niu_pic') {
                     $params['icon'] = '牛人专线';
                 }
             }

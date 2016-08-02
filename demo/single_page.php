@@ -27,7 +27,7 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                     $params['price'] = strip_tags($objSpan[$j]->outertext());
                 }
             }
-            $objLi = $objContent[$i]->find("li");<li class="f_1">
+            $objLi = $objContent[$i]->find("li");
             for ($j = 0; $j < count($objLi); ++$j) {
                 if ($objLi[$j]->getAttribute('class') == 'f_1' && $params['good'] == '') {
                     $params['good'] = strip_tags($objLi[$j]->outertext());

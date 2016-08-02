@@ -24,19 +24,22 @@ class mycrawler extends Phpfetcher_Crawler_Default {
             $objSpan = $objContent[$i]->find("span");
             for ($j = 0; $j < count($objSpan); ++$j) {
                 if ($objSpan[$j]->getAttribute('class') == 'cx_price' && $params['price'] == '') {
-                    $params['price'] = strip_tags($objSpan[$j]->outertext());
+                    $params['price'] = trim(strip_tags($objSpan[$j]->outertext()));
                 }
             }
             $objLi = $objContent[$i]->find("li");
             for ($j = 0; $j < count($objLi); ++$j) {
                 if ($objLi[$j]->getAttribute('class') == 'f_1' && $params['good'] == '') {
-                    $params['good'] = strip_tags($objLi[$j]->outertext());
+                    $params['good'] = trim(strip_tags($objLi[$j]->outertext()));
+                    $params['good'] = preg_replace('/一-龥/', '', $params['good']);
                 }
                 if ($objLi[$j]->getAttribute('class') == 'f_2' && $params['num'] == '') {
-                    $params['num'] = strip_tags($objLi[$j]->outertext());
+                    $params['num'] = trim(strip_tags($objLi[$j]->outertext()));
+                    $params['num'] = preg_replace('/一-龥/', '', $params['num']);
                 }
                 if ($objLi[$j]->getAttribute('class') == 'f_3' && $params['follow'] == '') {
-                    $params['follow'] = strip_tags($objLi[$j]->outertext());
+                    $params['follow'] = trim(strip_tags($objLi[$j]->outertext()));
+                    $params['follow'] = preg_replace('/一-龥/', '', $params['follow']);
                 }
             }
             if ($objContent[$i]->getAttribute('class') == 'gy-image') {

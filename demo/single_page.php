@@ -46,10 +46,18 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                 $objImg = $objContent[$i]->find("img");
                 $params['img'][] = $objImg->getAttribute('src');
             }
+
+            $objImg = $objContent[$i]->find("img");
+            for ($j = 0; $j < count($objImg); ++$j) {
+                if ($objImg[$i]->getAttribute('class') == 'niu_pic') {
+                    $params['icon'] = '牛人专线';
+                }
+            }
         }
         //打印处当前页面的title
         $res = $page->sel('//h1');
         $params['title'] = trim($res[0]->plaintext);
+//        var_dump($res[0]->find("//img"));exit;
 //        if ($res[0]->find("img")->getAttribute('class') == 'niu_pic' && $params['icon'] == '') {
 //            $params['icon'] = '牛人专线';
 //        }

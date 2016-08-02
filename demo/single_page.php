@@ -14,6 +14,9 @@ class mycrawler extends Phpfetcher_Crawler_Default {
             'img'     => array(),
             'price'   => '',
             'content' => '',
+            'good'    => '',
+            'num'     => '',
+            'follow'  => '',
         );
 
         $objContent = $page->sel("//div");
@@ -24,6 +27,18 @@ class mycrawler extends Phpfetcher_Crawler_Default {
                     $params['price'] = strip_tags($objSpan[$j]->outertext());
                 }
             }
+            $objLi = $objContent[$i]->find("li");<li class="f_1">
+            for ($j = 0; $j < count($objLi); ++$j) {
+                if ($objLi[$j]->getAttribute('class') == 'f_1' && $params['good'] == '') {
+                    $params['good'] = strip_tags($objLi[$j]->outertext());
+                }
+                if ($objLi[$j]->getAttribute('class') == 'f_2' && $params['num'] == '') {
+                    $params['num'] = strip_tags($objLi[$j]->outertext());
+                }
+                if ($objLi[$j]->getAttribute('class') == 'f_3' && $params['follow'] == '') {
+                    $params['follow'] = strip_tags($objLi[$j]->outertext());
+                }
+            }
             if ($objContent[$i]->getAttribute('class') == 'gy-image') {
                 $objImg = $objContent[$i]->find("img");
                 $params['img'][] = $objImg->getAttribute('src');
@@ -31,10 +46,10 @@ class mycrawler extends Phpfetcher_Crawler_Default {
         }
         //打印处当前页面的title
         $res = $page->sel('//h1');
-        $params['price'] = $res[0]->plaintext;
-        if ($res[0]->find("img")->getAttribute('class') == 'niu_pic' && $params['icon'] == '') {
-            $params['icon'] = '牛人专线';
-        }
+        $params['title'] = $res[0]->plaintext;
+//        if ($res[0]->find("img")->getAttribute('class') == 'niu_pic' && $params['icon'] == '') {
+//            $params['icon'] = '牛人专线';
+//        }
 
         var_dump($params);exit;
 
